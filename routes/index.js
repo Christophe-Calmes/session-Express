@@ -1,21 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-// Initialisation de la variable de sessions "maVariable" avec TRUE
+// Initialize session variables
 router.get('/', (req, res) => {
   req.session.maVariable = true;
 });
+
+// Create song session variable and send response immediately
 router.get('/session-in', (req, res) => {
-  req.session.song = 'be bop a lula';
-
+  req.session.secret = 'be bop a lula !';
   res.send('Session créée');
-  res.end();
+  res.render('index',{ title: 'Session In', info: 'Logged In to a session. Go to /session-out to see your secret!' });
 });
 
-// Route pour afficher le contenu de la variable de session "song"
+// Access song session variable
 router.get('/session-out', (req, res) => {
-  res.send(req.session.song);
+  res.send(req.session.secret);
 });
-
-
 module.exports = router;

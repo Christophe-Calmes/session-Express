@@ -2,9 +2,9 @@ const express = require('express');
 const Session = require('express-session');
 const FileStore = require('session-file-store')(Session);
 const path = require('path');
-
-
+const router = require('./routes/index');
 const app = express();
+
 const port = 3000;
 app
   .listen(port, () => {
@@ -20,9 +20,10 @@ app.use(Session({
     path: path.join(__dirname, '/tmp'),
     encrypt: true,
   }),
-  secret: 'Super Secret !',
+  secret: 'Be bop a lula !',
   resave: true,
   saveUninitialized: true,
   name: 'sessionId',
 }));
- 
+ app
+ .use(router);
